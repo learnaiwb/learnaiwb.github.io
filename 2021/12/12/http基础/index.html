@@ -7,21 +7,24 @@
   
   <title>http基础 | learnaiwb</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="http基础form-datahttp请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：  此时，Headers中的Content-Type就应该为Content-Type: multipart&#x2F;form-data; boundary&#x3D;—-WebKitFormBoundaryMHzissskK7">
+  <meta name="description" content="form-datahttp请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：    此时，Headers中的Content-Type就应该为Content-Type: multipart&#x2F;form-data; boundary&#x3D;—-WebKitFormBoundaryMHzissskK7K82u">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http基础">
 <meta property="og:url" content="https://learnaiwb.github.io/2021/12/12/http%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="learnaiwb">
-<meta property="og:description" content="http基础form-datahttp请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：  此时，Headers中的Content-Type就应该为Content-Type: multipart&#x2F;form-data; boundary&#x3D;—-WebKitFormBoundaryMHzissskK7">
+<meta property="og:description" content="form-datahttp请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：    此时，Headers中的Content-Type就应该为Content-Type: multipart&#x2F;form-data; boundary&#x3D;—-WebKitFormBoundaryMHzissskK7K82u">
 <meta property="og:locale">
-<meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/http基础-form-data.JPG">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/boundary.JPG">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/http%E5%9F%BA%E7%A1%80-form-data.JPG">
+<meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/boundary.JPG">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/boundary.JPG">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/x-www-from-urlencoded.JPG">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/x-www-from-urlencoded.JPG">
 <meta property="article:published_time" content="2021-12-12T10:00:25.976Z">
-<meta property="article:modified_time" content="2021-12-12T10:31:44.431Z">
+<meta property="article:modified_time" content="2021-12-12T10:50:40.953Z">
 <meta property="article:author" content="wb">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:/study/myGitPageBlog/source/images/http基础/http基础-form-data.JPG">
+<meta name="twitter:image" content="d:/study/myGitPageBlog/source/images/http基础/boundary.JPG">
   
     <link rel="alternate" href="/atom.xml" title="learnaiwb" type="application/atom+xml">
   
@@ -92,13 +95,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="http基础"><a href="#http基础" class="headerlink" title="http基础"></a>http基础</h2><h3 id="form-data"><a href="#form-data" class="headerlink" title="form-data"></a><strong>form-data</strong></h3><p>http请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：</p>
-<p><img src="D:\study\myGitPageBlog\source\images\http基础\http基础-form-data.JPG"></p>
+        <h3 id="form-data"><a href="#form-data" class="headerlink" title="form-data"></a><strong>form-data</strong></h3><p>http请求中，body为form-data模式，此时可通过form表达或者js的formdata对象进行构造数据，数据类型可以为文件或者键值对的模式，如下所示：</p>
+<p><img src="D:\study\myGitPageBlog\source\images\http基础\boundary.JPG"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/http%E5%9F%BA%E7%A1%80-form-data.JPG" class="" title="title text" alt="alt text">
+
 <p>此时，Headers中的Content-Type就应该为Content-Type: multipart/form-data; boundary=—-WebKitFormBoundaryMHzissskK7K82uyt的格式，其中分隔符会应用到body中，如下所示：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\boundary.JPG"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/boundary.JPG" class="" title="title text" alt="alt text">
+
 <p>在web开发中上传文件比较简单，一个普通的post表单再加上文件类型的标签就可以完成，上传的这些工作都是交给浏览器完成。但是在客户端上传文件时就需要自己写http上传相关的参数</p>
 <h3 id="x-www-form-urlencoded"><a href="#x-www-form-urlencoded" class="headerlink" title="x-www-form-urlencoded"></a>x-www-form-urlencoded</h3><p>将表单内的数据转换为键值对，如name=java&amp;age=23;注意采用url编码格式，这意味着中文不会直接作为参数传入的。</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\x-www-from-urlencoded.JPG"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/x-www-from-urlencoded.JPG" class="" title="title text" alt="alt text">
+
 <h3 id="raw"><a href="#raw" class="headerlink" title="raw"></a>raw</h3><p>可以上传任意格式的文本，如text json xml html 等,下图列出了raw格式对应的html头文件。</p>
 <table>
 <thead>
@@ -131,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://learnaiwb.github.io/2021/12/12/http%E5%9F%BA%E7%A1%80/" data-id="ckx33y4t40001lcuibgj7caez" class="article-share-link">Share</a>
+      <a data-url="https://learnaiwb.github.io/2021/12/12/http%E5%9F%BA%E7%A1%80/" data-id="ckx34mjj20001moui6zdl8aqy" class="article-share-link">Share</a>
       
       
     </footer>
