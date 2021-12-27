@@ -15,19 +15,21 @@
 <meta property="og:description" content="http代理上一版http代理，不具备下述功能： 1、错误回调即错误日志处理 2、更改代理的返回内容 3、负载均衡策略 4、url重写 5、限流、熔断、降级 6、数据统计 7、权限验证 golang官方提供的ReverseProxy,拓展功能，添加4中负载轮询类型实现及接口封装，拓展中间件支持：限流、熔断实现、权限、数据统计 ReverseProxy 功能点： 1、更改内容 2、错误信息回调 3、">
 <meta property="og:locale">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/image-20211219195243040.png">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/image-20211219195243040.png">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/image-20211219195426738.png">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/image-20211219195426738.png">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/bVcRfVY">
-<meta property="og:image" content="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfVY">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/bVcRfVY">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/bVcRfV2">
-<meta property="og:image" content="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfV2">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/bVcRfV2">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/bVcRfV9">
-<meta property="og:image" content="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfV9">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/bVcRfV9">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/bVcRfWd">
-<meta property="og:image" content="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfWd">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/bVcRfWd">
 <meta property="og:image" content="d:/study/myGitPageBlog/source/images/http基础/bVcRfWk">
-<meta property="og:image" content="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfWk">
+<meta property="og:image" content="https://learnaiwb.github.io/images/http%E5%9F%BA%E7%A1%80/bVcRfWk">
 <meta property="article:published_time" content="2021-12-19T09:59:41.291Z">
-<meta property="article:modified_time" content="2021-12-26T14:02:28.805Z">
+<meta property="article:modified_time" content="2021-12-27T11:28:11.881Z">
 <meta property="article:author" content="wb">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="d:/study/myGitPageBlog/source/images/http基础/image-20211219195243040.png">
@@ -123,13 +125,13 @@
 <p>记录最后直连实际服务器之前，整个的代理过程</p>
 <p>可能会被伪造</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\image-20211219195243040.png" alt="image-20211219195243040"></p>
-<img class="\images\http基础\image-20211219195243040.png">
+<img src="/images/http%E5%9F%BA%E7%A1%80/image-20211219195243040.png" class="">
 
 <p>X-Real-IP</p>
 <p>请求实际服务器的IP</p>
 <p>每过一层代理都会被覆盖掉，只需第一代理设置转发</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\image-20211219195426738.png" alt="image-20211219195426738"></p>
-<img class="images\http基础\image-20211219195426738.png">
+<img src="/images/http%E5%9F%BA%E7%A1%80/image-20211219195426738.png" class="">
 
 <p>Connection：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Connection">Connection - HTTP | MDN (mozilla.org)</a></p>
 <p>TE，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Trailer">Trailer - HTTP | MDN (mozilla.org)</a></p>
@@ -152,20 +154,24 @@
 <p>请求固定URL访问指定IP</p>
 <p>简单来说我们把所有数据做一致性<strong>hash</strong>计算后的所有结果看作一个 <strong>hash</strong> 闭环，而闭环的大小为0~2^32，也就说所有的数据都会坐落在这个 <strong>hash</strong> 闭环；如下图：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\bVcRfVY" alt="redis分布式缓存（一致性hash算法"></p>
-<p><img src="images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfVY" alt="redis分布式缓存（一致性hash算法"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/bVcRfVY" class="">
+
 <p>0 和 2^32 在 <strong>hash</strong> 闭环中重合，这里为什么要这样做 大家可以思考下。。</p>
 <p>下一步我们把 <strong>redis 服务</strong> 的IP 也使用 相同的 <strong>hash(“redis服务IP”)</strong> 方法进行求出 <strong>hash</strong> 值，这样我们 <strong>redis服务</strong> 也会坐落在我们的 <strong>hash闭环</strong> 中，他的作用 可以看做个桶，承接顺指针流入的数据；如下图：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\bVcRfV2" alt="redis分布式缓存（一致性hash算法）图2"></p>
-<p><img src="images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfV2" alt="redis分布式缓存（一致性hash算法）图2"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/bVcRfV2" class="">
+
 <p>接下来我们把所有的数据key （即:Customer_id）使用相同的 <strong>hash(“key”)</strong> 函数计算出对应的 <strong>hash</strong> 值；那么我们的数据也会坐落于我们 <strong>hash闭环</strong> 中，从此位置开始沿着 <strong>hash闭环</strong> 顺时针行走，遇到第一个 <strong>Redis服务</strong> 就是其定位所在的缓存服务器。。如下图：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\bVcRfV9" alt="redis分布式缓存（一致性hash算法）图3"></p>
-<p><img src="images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfV9" alt="redis分布式缓存（一致性hash算法）图3"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/bVcRfV9" class="">
+
 <p>比如：我们有 A,B,C,D 4个数据，通过 <strong>hash()</strong> 函数计算后，坐落在 <strong>hash闭环</strong>上，顺时针运转后，A 数据会流入 Redis服务1中，B 和 C 数据会流入Redis服务2中，D数据则会流入 Redis服务3中；</p>
 <p>也许你会好奇，<strong>hash 取模</strong> 不也可以实现上述的吗？而且还能保证数据的绝对均匀。。</p>
 <p>OK！那么我看他特有的优势：</p>
 <p>当我们需要把 <strong>Redis服务3</strong> 从集群中剥离出来会发生怎样的情况，如下图：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\bVcRfWd" alt="redis分布式缓存（一致性hash算法）图4"></p>
-<p><img src="images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfWd" alt="redis分布式缓存（一致性hash算法）图4"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/bVcRfWd" class="">
+
 <p>我们看出，当 <strong>Redis服务3</strong> 从集群中剥离出来后，原来要流入服务器 <strong>Redis服务3</strong> 的数据 D ，只能流入 <strong>Redis服务1</strong> 中，而 <strong>Redis服务2</strong>的数据将没有任何影响，也就是环境话说 当缓存服务器从集群中剥离出来或者添加缓存服务器到集群中都只会影响到顺流而下的下一个缓存服务器；</p>
 <blockquote>
 <p>换句话说：一致性哈希算法对于节点的增减都只需重定位环空间中的一小部分数据，具有较好的容错性和可扩展性。</p>
@@ -177,7 +183,8 @@
 <p>不妨我们做一个大胆的假设，如果我们 <strong>redis服务</strong> 非常多，数量极大，无限趋向于 2^32，那么我们数据流入服务器的数量是不是就一定会趋向于均匀呢？（这里我们不考虑hash碰撞的问题哟）</p>
 <p>答案是肯定的，当然我们缓存服务器的数量也不可能有这么多，这个说明只是为了说明当 缓存节点坐落在 <strong>hash闭环</strong> 上的数量越多，那么我们数据分布就会趋向于均匀。。但是我们又没办法用于这么多真实的缓存服务节点，所以我们引入了一个 <strong>虚拟节点</strong> 的概念。。如下图：</p>
 <p><img src="D:\study\myGitPageBlog\source\images\http基础\bVcRfWk" alt="redis分布式缓存（一致性hash算法）图5"></p>
-<p><img src="images%5Chttp%E5%9F%BA%E7%A1%80%5CbVcRfWk" alt="redis分布式缓存（一致性hash算法）图5"></p>
+<img src="/images/http%E5%9F%BA%E7%A1%80/bVcRfWk" class="">
+
 <p>我们把 真实的<strong>Redis服务1</strong>节点 转换成2个虚拟节点 分布在环上，当数据流入虚拟节点时实际上也是流入<strong>Redis服务1</strong>。</p>
 <p>其实 <strong>虚拟节点</strong> 除了保证分布的均匀，还有一个突出的作用：每一台缓存服务的性能不同 会导致提供服务的能力不同。通过<strong>虚拟节点</strong> 我们可以有效控制数据缓存的量。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">package samehash</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">   &quot;errors&quot;</span><br><span class="line">   &quot;hash/crc32&quot;</span><br><span class="line">   &quot;sort&quot;</span><br><span class="line">   &quot;strconv&quot;</span><br><span class="line">   &quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Hash func(data []byte) uint32</span><br><span class="line"></span><br><span class="line">type UInt32Slice []uint32</span><br><span class="line"></span><br><span class="line">func (s UInt32Slice) Len() int &#123;</span><br><span class="line">   return len(s)</span><br><span class="line">&#125;</span><br><span class="line">func (s UInt32Slice) Less(i,j int) bool &#123;</span><br><span class="line">   return s[i] &lt; s[j]</span><br><span class="line">&#125;</span><br><span class="line">func (s UInt32Slice) Swap(i,j int)  &#123;</span><br><span class="line">   s[i], s[j] = s[j],s[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type ConsistentHashBalace struct &#123;</span><br><span class="line">   m sync.RWMutex</span><br><span class="line">   hash Hash</span><br><span class="line">   replicas int //复制因子</span><br><span class="line">   keys UInt32Slice //已排序的节点hash切片</span><br><span class="line">   hashMap map[uint32]string //键为hash值，值是节点key</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewCosistentHashBalace(replicas int, fn Hash) *ConsistentHashBalace  &#123;</span><br><span class="line">   m := &amp;ConsistentHashBalace&#123;</span><br><span class="line">      replicas: replicas,</span><br><span class="line">      hash: fn,</span><br><span class="line">      hashMap: make(map[uint32]string),</span><br><span class="line">   &#125;</span><br><span class="line">   if m.hash == nil &#123;</span><br><span class="line">      m.hash = crc32.ChecksumIEEE</span><br><span class="line">   &#125;</span><br><span class="line">   return m</span><br><span class="line">&#125;</span><br><span class="line">func (c *ConsistentHashBalace) Add(params ...string) error &#123;</span><br><span class="line">   if len(params) == 0 &#123;</span><br><span class="line">      return errors.New(&quot;param len 1 at least&quot;)</span><br><span class="line">   &#125;</span><br><span class="line">   c.m.Lock()</span><br><span class="line">   defer c.m.Unlock()</span><br><span class="line">   for _,addr := range params &#123;</span><br><span class="line">      //结合复制因子计算所有虚拟节点的hash值，并存入m.keys中，同时在m.hashMap中保存哈希值和key的映射</span><br><span class="line">      for i := 0; i &lt; c.replicas; i++ &#123;</span><br><span class="line">         hash := c.hash([]byte(strconv.Itoa(i)+addr))</span><br><span class="line">         c.keys = append(c.keys,hash)</span><br><span class="line">         c.hashMap[hash] = addr</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   sort.Sort(c.keys)</span><br><span class="line">   return nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   func (c *ConsistentHashBalace) Get(key string) (string,error) &#123;</span><br><span class="line">   if len(c.keys) == 0 &#123;</span><br><span class="line">      return &quot;&quot;,errors.New(&quot;no nodes for service&quot;)</span><br><span class="line">   &#125;</span><br><span class="line">   hash := c.hash([]byte(key))</span><br><span class="line">   idx := sort.Search(len(c.keys), func(i int) bool &#123;</span><br><span class="line">      return c.keys[i] &gt;= hash</span><br><span class="line">   &#125;)</span><br><span class="line">   if idx == len(c.keys) &#123;</span><br><span class="line">      idx = 0</span><br><span class="line">   &#125;</span><br><span class="line">   c.m.RLock()</span><br><span class="line">   defer c.m.RUnlock()</span><br><span class="line">   return c.hashMap[c.keys[idx]],nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -186,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/" data-id="ckxnbphs20003d8ui47mn15oa" class="article-share-link">Share</a>
+      <a data-url="https://learnaiwb.github.io/2021/12/19/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32/" data-id="ckxolqofq00043gui23k61e1h" class="article-share-link">Share</a>
       
       
     </footer>
